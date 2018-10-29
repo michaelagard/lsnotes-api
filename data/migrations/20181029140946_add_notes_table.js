@@ -1,6 +1,6 @@
 exports.up = function (knex, Promise) {
   return knex.schema.createTable('notes', function (tbl) {
-    tbl.increments('noteId');
+    tbl.increments();
     tbl
       .string('title', 255)
       .notNullable()
