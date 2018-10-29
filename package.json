@@ -1,0 +1,8 @@
+{
+  "name": "lsnotes-api",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/michaelagard/lsnotes-api.git",
+  "author": "michaelagard <mdagard@gmail.com>",
+  "license": "MIT"
+}
