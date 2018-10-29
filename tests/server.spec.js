@@ -62,11 +62,13 @@ describe('../api/server.js', () => {
       expect(response.status).toBe(expected);
     });
 
-    it.skip('should respond with the id of the new note', async () => {
-      let bodyData = { title: 'JEST POST TEST', tags: 'JEST, POST', textBody: 'THIS IS A TEST FROM JEST' }
+    it('should respond with the id of the new note', async () => {
+      let bodyData = { id: 5000000, title: 'JEST POST TEST', tags: 'JEST, POST', textBody: 'THIS IS A TEST FROM JEST' }
       const response = await request(server).post(`/api/notes/create`).send(bodyData);
-      const expected = 6;
+      const responseDelete = await request(server).delete(`/api/notes/delete/5000000`);
+      const expected = 5000000;
       expect(response.body).toBe(expected);
+      expect(responseDelete.body).toBe(1);
     });
   });
 
@@ -81,7 +83,7 @@ describe('../api/server.js', () => {
     });
 
     it('should return status code 404 if note does not exist', async () => {
-      let id = 'nothingHere';
+      let id = 5000000;
       let bodyData = { title: 'JEST PUT TEST', tags: 'JEST, PUT', textBody: 'THIS IS A TEST FROM JEST' }
       const response = await request(server).put(`/api/notes/edit/${id}`).send(bodyData);
       const expected = 404;
@@ -99,8 +101,12 @@ describe('../api/server.js', () => {
 
   describe('DELETE /api/notes/delete/:id', () => {
 
-    it.skip('should return status code 200 if existing note was deleted correctly', async () => {
-      let id = 4;
+    it('should return status code 200 if existing note was deleted correctly', async () => {
+      let bodyData = { id: 5000000, title: 'JEST POST TEST', tags: 'JEST, POST', textBody: 'THIS IS A TEST FROM JEST' }
+      const postResponse = await request(server).post(`/api/notes/create`).send(bodyData);
+      const postExpected = 201;
+      expect(postResponse.status).toBe(postExpected);
+      let id = 5000000;
       const response = await request(server).delete(`/api/notes/delete/${id}`);
       const expected = 200;
       expect(response.status).toBe(expected);
@@ -114,18 +120,18 @@ describe('../api/server.js', () => {
     });
 
     it('should return with count of deleted records which is 1', async () => {
-      let bodyData = { id: 5000, title: 'JEST POST TEST', tags: 'JEST, POST', textBody: 'THIS IS A TEST FROM JEST' }
+      let bodyData = { id: 5000000, title: 'JEST POST TEST', tags: 'JEST, POST', textBody: 'THIS IS A TEST FROM JEST' }
       const postResponse = await request(server).post(`/api/notes/create`).send(bodyData);
       const postExpected = 201;
       expect(postResponse.status).toBe(postExpected);
-      let id = 5000;
+      let id = 5000000;
       const response = await request(server).delete(`/api/notes/delete/${id}`);
       const expected = 1;
       expect(response.body).toBe(expected);
     })
 
     it('should return with "message: No records found to delete"', async () => {
-      let id = 'nothingHere';
+      let id = 5000000;
       const response = await request(server).delete(`/api/notes/delete/${id}`);
       const expected = { message: 'No records found to delete' };
       expect(response.body).toEqual(expected);
