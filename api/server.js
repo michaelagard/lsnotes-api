@@ -28,11 +28,33 @@ server.get('/api/notes', (req, res) => { // get list of notes
     .catch(err => res.status(500).json(err));
 });
 
-server.get('/api/notes/:id', (req, res) => { // get note by id
+server.get('/api/notes/:id', async (req, res) => {
   try {
-    res.status(200).json({ message: "success" })
-  } catch (err) {
-    res.status(500).json(err)
+    const { id } = req.params;
+    const note = await notes.findById(id);
+    if (note) {
+      res.status(200).json(note);
+    } else {
+      res.status(404).json({ message: 'note not found' });
+    }
+  } catch (error) {
+    res.status(500).json(error);
+  }
+});
+
+server.post('/api/notes/create', (req, res) => {
+  const note = req.body;
+  if (note.title && note.textBody) {
+    notes
+      .add(note)
+      .then(ids => {
+        res.status(201).json(ids[0]);
+      })
+      .catch(err => {
+        res.status(500).json(err);
+      });
+  } else {
+    res.status(422).json({ message: 'Notes require a title and a body.' })
   }
 });
 
