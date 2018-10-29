@@ -4,10 +4,8 @@ const server = express();
 server.use(express.json());
 
 // CONFIG: knex settings
-
 const knex = require('knex');
-const knexConfig = require('./knexfile');
-
+const knexConfig = require('../data/knexfile');
 const db = knex(knexConfig.development);
 
 // CONFIG: server settings
