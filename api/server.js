@@ -58,4 +58,19 @@ server.post('/api/notes/create', (req, res) => {
   }
 });
 
+server.put('/api/notes/edit/:id', (req, res) => {
+  const { id } = req.params;
+  const changes = req.body;
+  notes
+    .update(id, changes)
+    .then(count => {
+      if (!count || count < 1) {
+        res.status(404).json({ message: 'No records found to update' });
+      } else {
+        res.status(200).json(count);
+      }
+    })
+    .catch(err => res.status(500).json(err));
+});
+
 module.exports = server;
