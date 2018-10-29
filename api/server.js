@@ -6,7 +6,7 @@ const notes = require('../data/models/notesModel');
 
 // CONFIG: knex settings
 const knex = require('knex');
-const knexConfig = require('../data/knexfile');
+const knexConfig = require('../knexfile');
 const db = knex(knexConfig.development);
 
 // CONFIG: server settings
