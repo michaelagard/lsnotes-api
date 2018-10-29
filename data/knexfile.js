@@ -6,5 +6,8 @@ module.exports = {
       filename: './notes.sqlite3'
     },
     useNullAsDefault: true,
+    seeds: {
+      directory: './seeds'
+    }
   }
 };
