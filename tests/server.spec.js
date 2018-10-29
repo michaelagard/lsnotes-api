@@ -72,6 +72,29 @@ describe('../api/server.js', () => {
 
   describe('PUT /api/notes/edit/:id', () => {
 
+    it('should return status code 200 if existing note was edited correctly', async () => {
+      let id = 3;
+      let bodyData = { title: 'JEST PUT TEST', tags: 'JEST, PUT', textBody: 'THIS IS A TEST FROM JEST' }
+      const response = await request(server).put(`/api/notes/edit/${id}`).send(bodyData);
+      const expected = 200;
+      expect(response.status).toBe(expected);
+    });
+
+    it('should return status code 404 if note does not exist', async () => {
+      let id = 'nothingHere';
+      let bodyData = { title: 'JEST PUT TEST', tags: 'JEST, PUT', textBody: 'THIS IS A TEST FROM JEST' }
+      const response = await request(server).put(`/api/notes/edit/${id}`).send(bodyData);
+      const expected = 404;
+      expect(response.status).toBe(expected);
+    });
+
+    it('should return with count of updated records which is 1', async () => {
+      let id = 3;
+      let bodyData = { title: 'JEST PUT TEST', tags: 'JEST, PUT', textBody: 'THIS IS A TEST FROM JEST' }
+      const response = await request(server).put(`/api/notes/edit/${id}`).send(bodyData);
+      const expected = 1;
+      expect(response.body).toBe(expected);
+    });
   });
 
   describe('DELETE /api/notes/delete/:id', () => {
