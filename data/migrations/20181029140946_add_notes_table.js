@@ -6,7 +6,6 @@ exports.up = function (knex, Promise) {
       .notNullable()
     tbl
       .string('tags', 255)
-      .unique('uq_zoo_name');
     tbl
       .string('textBody')
       .notNullable()
