@@ -14,9 +14,9 @@ function find() {
   return db('notes');
 }
 
-function findById(id) {
+function findById(_id) {
   return db('notes')
-    .where({ id })
+    .where({ _id })
     .first();
 }
 
@@ -26,14 +26,14 @@ function add(note) {
     .into('notes');
 }
 
-function update(id, changes) {
+function update(_id, changes) {
   return db('notes')
-    .where({ id })
+    .where({ _id })
     .update(changes);
 }
 
-function remove(id) {
+function remove(_id) {
   return db('notes')
-    .where({ id })
+    .where({ _id })
     .del();
 }
