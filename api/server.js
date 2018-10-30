@@ -51,11 +51,11 @@ server.post('/api/notes/create', (req, res) => {
   }
 });
 
-server.put('/api/notes/edit/:id', (req, res) => {
-  const { id } = req.params;
+server.put('/api/notes/edit/:_id', (req, res) => {
+  const { _id } = req.params;
   const changes = req.body;
   notes
-    .update(id, changes)
+    .update(_id, changes)
     .then(count => {
       if (!count || count < 1) {
         res.status(404).json({ message: 'No records found to update' });
