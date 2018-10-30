@@ -1,15 +1,16 @@
 exports.up = function (knex, Promise) {
   return knex.schema.createTable('notes', function (tbl) {
-    tbl.increments();
+    tbl
+      .string('tags', 255)
+    tbl.increments('_id');
     tbl
       .string('title', 255)
       .notNullable()
     tbl
-      .string('tags', 255)
-    tbl
       .string('textBody')
       .notNullable()
-    tbl.timestamp('createdAt').defaultTo(knex.fn.now());
+    tbl
+      .integer('__v')
   });
 };
 
