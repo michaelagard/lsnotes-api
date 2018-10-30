@@ -66,11 +66,11 @@ server.put('/api/notes/edit/:_id', (req, res) => {
     .catch(err => res.status(500).json(err));
 });
 
-server.delete('/api/notes/delete/:id', (req, res) => {
-  const { id } = req.params;
+server.delete('/api/notes/delete/:_id', (req, res) => {
+  const { _id } = req.params;
 
   notes
-    .remove(id)
+    .remove(_id)
     .then(count => {
       if (!count || count < 1) {
         res.status(404).json({ message: 'No records found to delete' });
