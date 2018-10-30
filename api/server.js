@@ -3,7 +3,8 @@ const express = require('express');
 const server = express();
 server.use(express.json());
 const notes = require('../data/models/notesModel');
-
+const cors = require('cors');
+server.use(cors());
 // CONFIG: knex settings
 const knex = require('knex');
 const knexConfig = require('../knexfile');
@@ -28,10 +29,10 @@ server.get('/api/notes', (req, res) => { // get list of notes
     .catch(err => res.status(500).json(err));
 });
 
-server.get('/api/notes/:id', async (req, res) => {
+server.get('/api/notes/:_id', async (req, res) => {
   try {
-    const { id } = req.params;
-    const note = await notes.findById(id);
+    const { _id } = req.params;
+    const note = await notes.findById(_id);
     if (note) {
       res.status(200).json(note);
     } else {
