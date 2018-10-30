@@ -4,9 +4,9 @@ exports.seed = function (knex, Promise) {
   return knex('notes').del()
     .then(function () {
       return knex('notes').insert([
-        { id: 1, title: 'First Seeded Note', tags: 'first', textBody: 'This is the first seeded note.' },
-        { id: 2, title: 'Second Seeded Note', tags: 'second', textBody: 'This is the second seeded note.' },
-        { id: 3, title: 'Third Seeded Note', tags: 'third', textBody: 'This is the third seeded note.' },
+        { _id: 1, title: 'First Seeded Note', textBody: 'This is the first seeded note.', __v: 0 },
+        { _id: 2, title: 'Second Seeded Note', textBody: 'This is the second seeded note.', __v: 0 },
+        { _id: 3, title: 'Third Seeded Note', textBody: 'This is the third seeded note.', __v: 0 },
       ]);
     });
 };
