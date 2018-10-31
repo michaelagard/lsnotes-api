@@ -1,4 +1,4 @@
-require('donenv').config();
+require('dotenv').config();
 const logalPg = {
   host: 'localhost',
   database: 'lambda',
@@ -24,7 +24,7 @@ module.exports = {
   },
   production: {
     client: 'pg',
-    connetion: dbConneciton,
+    connetion: dbConnection,
     pool: {
       min: 2,
       max: 10,
