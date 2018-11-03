@@ -5,12 +5,10 @@ server.use(express.json());
 const notes = require('../data/models/notesModel');
 const cors = require('cors');
 server.use(cors());
-
 // CONFIG: knex settings
 const knex = require('knex');
 const knexConfig = require('../knexfile');
 const db = knex(knexConfig.development);
-
 // ENDPOINTS
 server.get('/api/notes', (req, res) => { // get list of notes
   notes
@@ -20,7 +18,6 @@ server.get('/api/notes', (req, res) => { // get list of notes
     })
     .catch(err => res.status(500).json(err));
 });
-
 server.get('/api/notes/:_id', async (req, res) => {
   try {
     const { _id } = req.params;
@@ -34,7 +31,6 @@ server.get('/api/notes/:_id', async (req, res) => {
     res.status(500).json(error);
   }
 });
-
 server.post('/api/notes/create', (req, res) => {
   const note = req.body;
   if (note.title && note.textBody) {
@@ -50,7 +46,6 @@ server.post('/api/notes/create', (req, res) => {
     res.status(422).json({ message: 'Notes require a title and a body.' })
   }
 });
-
 server.put('/api/notes/edit/:_id', (req, res) => {
   const { _id } = req.params;
   const changes = req.body;
@@ -65,10 +60,8 @@ server.put('/api/notes/edit/:_id', (req, res) => {
     })
     .catch(err => res.status(500).json(err));
 });
-
 server.delete('/api/notes/delete/:_id', (req, res) => {
   const { _id } = req.params;
-
   notes
     .remove(_id)
     .then(count => {
@@ -80,5 +73,4 @@ server.delete('/api/notes/delete/:_id', (req, res) => {
     })
     .catch(err => res.status(500).json(err));
 });
-
-module.exports = server;
+module.exports = server; 
